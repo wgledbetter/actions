@@ -14,3 +14,5 @@ echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sourc
 sudo apt update
 sudo apt install intel-oneapi-mkl intel-oneapi-mkl-devel
 source /opt/intel/oneapi/mkl/latest/env/vars.sh
+echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
+echo "INTEL=$INTEL" >> $GITHUB_ENV

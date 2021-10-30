@@ -26,5 +26,8 @@ source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=$INTEL" >> $GITHUB_ENV
 
+ls $MKLROOT
+echo "*************"
+cat /etc/apt/sources.list.d/oneAPI.list
 echo "*************"
 ls /usr/bin/clang*

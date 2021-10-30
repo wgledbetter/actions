@@ -4,6 +4,7 @@ sudo apt update
 
 # Install Compiler
 sudo apt install $COMPILER
+$COMPILER -v
 echo "CC=$COMPILER" >> $GITHUB_ENV
 COMPILER_NAME=${COMPILER%-*}
 COMPILER_VERSION=${COMPILER#*-}

@@ -1,3 +1,6 @@
 [submodule "dep/pybind11"]
 	path = dep/pybind11
 	url = git@github.com:pybind/pybind11.git
+[submodule "dep/eigen"]
+	path = dep/eigen
+	url = https://gitlab.com/libeigen/eigen.git

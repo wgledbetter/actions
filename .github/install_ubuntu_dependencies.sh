@@ -4,13 +4,12 @@ sudo apt update
 
 # Install Compiler
 sudo apt install $COMPILER
+echo "CC=$COMPILER" >> $GITHUB_ENV
 COMPILER_NAME=${COMPILER%-*}
-COMPILER_VERSION=${COMPILER%*-}
+COMPILER_VERSION=${COMPILER#*-}
 if [[ $COMPILER_NAME == "clang" ]]; then
-  echo "CC=$COMPILER" >> $GITHUB_ENV
   echo "CXX=$COMPILER_NAME++-$COMPILER_VERSION" >> $GITHUB_ENV
 else
-  echo "CC=gcc-$COMPILER_VERSION" >> $GITHUB_ENV
   echo "CXX=g++-$COMPILER_VERSION" >> $GITHUB_ENV
 fi
 
@@ -27,9 +26,10 @@ echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=$INTEL" >> $GITHUB_ENV
 
 echo $MKLROOT
-ls $MKLROOT/lib/intel64
+echo $INTEL
+cat /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "*************"
-ls /opt/intel/oneapi
+ls /opt/intel/oneapi/compiler
 echo "*************"
 ls /usr/bin/gcc*
 ls /usr/bin/g++*

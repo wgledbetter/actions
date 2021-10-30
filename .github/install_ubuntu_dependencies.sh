@@ -54,10 +54,10 @@ else
     "intel-oneapi-tbb-common-devel"
     "intel-oneapi-tbb-devel"
   )
-  mkdir -p ~/mkl
+  mkdir -p ~/oneapi
   for pkg in ${oneapi-packages[@]}; do
-    sudo apt-get install ${pkg}-$MKL_VERSION
-    sudo dpkg -L ${pkg}-$MKL_VERSION | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/
+    sudo apt-get install ${pkg}-$ONEAPI_VERSION
+    sudo dpkg -L ${pkg}-$ONEAPI_VERSION | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/oneapi/
   done
 
   # echo "NEW KEYS SHOULD BE:"
@@ -67,7 +67,7 @@ else
   # apt-cache policy intel-oneapi-compiler-dpcpp-cpp | grep -oP '(?<=Candidate:\s)(.+)'
 
   echo "dpkg -L output:"
-  sudo dpkg -L intel-oneapi-mkl-$MKL_VERSION
+  sudo dpkg -L intel-oneapi-mkl-$ONEAPI_VERSION
 
   # mkdir -p ~/mkl
   # sudo dpkg -L intel-oneapi-mkl | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/

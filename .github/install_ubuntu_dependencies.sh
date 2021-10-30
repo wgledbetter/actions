@@ -23,7 +23,7 @@ sudo apt update
 sudo apt install intel-oneapi-mkl intel-oneapi-mkl-devel
 source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
-echo "INTEL=$INTEL" >> $GITHUB_ENV
+echo "INTEL=/opt/intel/oneapi" >> $GITHUB_ENV
 
 echo $MKLROOT
 echo $INTEL

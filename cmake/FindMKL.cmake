@@ -135,7 +135,7 @@ find_library(MKL_OMP_LIBRARY
                   $ENV{INTEL}/compiler/lib/intel64_win
                   $ENV{INTEL}/compiler/latest/lib/intel64
                   $ENV{INTEL}/compiler/latest/lib/intel64_win
-                  $ENV{INTEL}/compiler/latest/linux/compiler/lib/intel64_lin)
+                  $ENV{INTEL}/compiler/latest/linux/compiler/lib/intel64_lin)  # atrocious
 
 
 

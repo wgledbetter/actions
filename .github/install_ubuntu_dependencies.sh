@@ -25,11 +25,4 @@ source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=/opt/intel/oneapi" >> $GITHUB_ENV
 
-echo $MKLROOT
-echo $INTEL
-cat /opt/intel/oneapi/mkl/latest/env/vars.sh
-echo "*************"
-ls /opt/intel/oneapi/compiler
-echo "*************"
-ls /usr/bin/gcc*
-ls /usr/bin/g++*
+ls /opt/intel/oneapi/compiler/latest

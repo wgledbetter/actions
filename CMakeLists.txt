@@ -3,6 +3,7 @@ project(actions)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # set(BUILD_SHARED_LIBS TRUE)
+unset(BUILD_SHARED_LIBS)
 
 
 ################################################################################

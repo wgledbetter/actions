@@ -114,7 +114,7 @@ find_library(MKL_INTERFACE_LIBRARY
                   $ENV{INTEL}/mkl/lib/intel64
                   $ENV{INTEL}/mkl/latest/lib/intel64
                   $ENV{MKLROOT}/lib/intel64_win
-                  $ENV{INTEL}/mkl/lib/intel64_win
+                  $ENV{INTEL}/mkl/lib/intel64_win)
 
 find_library(MKL_CORE_LIBRARY
             NAMES ${COR_LIB}

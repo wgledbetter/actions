@@ -28,15 +28,14 @@ jobs:
         path: dist/*.tar.gz
 
   # ----------------------------------------------------------------------------
-  build_wheels:
-    name: Wheels on ${{ matrix.os }}
+  build_wheels_linux:
+    name: Wheels on linux - python${{ matrix.python-version }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
         python-version: ["3.8", "3.9"]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -47,17 +46,18 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    # - uses: actions/cache@v2
+    #   name: Cache MKL
+    #   id: cache-mkl
+    #   with:
+    #     path: "~/mkl"
+    #     key: ${{ secrets.MKL_VERSION }}
+
     - name: Install Ubuntu dependencies
       if: ${{ runner.os == 'linux' }}
       env:
         COMPILER: "clang-11"
       run: bash $GITHUB_WORKSPACE/.github/install_ubuntu_dependencies.sh
-
-    - name: Install MacOS dependencies
-      if: ${{ runner.os == 'macOS' }}
-      run: bash $GITHUB_WORKSPACE/.github/install_macos_dependencies.sh
-    # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     - name: Add python requirements
       run : python -m pip install --upgrade wheel setuptools
@@ -73,7 +73,7 @@ jobs:
   # ----------------------------------------------------------------------------
   upload_all:
     name: Upload if release
-    needs: [build_wheels, build_sdist]
+    needs: [build_wheels_linux, build_sdist]
     runs-on: ubuntu-latest
 
     steps:
@@ -82,7 +82,7 @@ jobs:
           path: release
 
       - name: Check downloaded artifacts
-        run: ls $GITHUB_WORKSPACE/release/
+        run: ls -lah $GITHUB_WORKSPACE/release/ && ls -lah $GITHUB_WORKSPACE/release/artifact/
 
       # - uses: johnwbyrd/update-release@v1
       #   with:

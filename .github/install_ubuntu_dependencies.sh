@@ -32,6 +32,9 @@ else
   apt-cache policy intel-oneapi-openmp | grep -oP '(?<=Candidate:\s)(.+)'
   apt-cache policy intel-oneapi-compiler-dpcpp-cpp | grep -oP '(?<=Candidate:\s)(.+)'
 
+  echo "dpkg -L output:"
+  sudo dpkg -L intel-oneapi-mkl
+
   mkdir -p ~/mkl
   sudo dpkg -L intel-oneapi-mkl | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/
   sudo dpkg -L intel-oneapi-mkl-devel | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/

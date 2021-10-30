@@ -56,7 +56,7 @@ jobs:
 
     - uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-environment: ""
+        activate-environment: true
         auto-update-conda: true
         auto-activate-base: true
         python-version: ${{ matrix.python-version }}

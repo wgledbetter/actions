@@ -46,17 +46,19 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # - uses: actions/cache@v2
-    #   name: Cache MKL
-    #   id: cache-mkl
-    #   with:
-    #     path: "~/mkl"
-    #     key: ${{ secrets.MKL_VERSION }}
+    - uses: actions/cache@v2
+      name: Cache MKL
+      id: cache-mkl
+      with:
+        path: "~/mkl"
+        key: ${{ secrets.MKL_VERSION }}
 
     - name: Install Ubuntu dependencies
       if: ${{ runner.os == 'linux' }}
       env:
         COMPILER: "clang-11"
+        CACHE_HIT: ${{ steps.cache-mkl.outputs.cache-hit }}
+        MKL_VERSION: ${{ secrets.MKL_VERSION }}
       run: bash $GITHUB_WORKSPACE/.github/install_ubuntu_dependencies.sh
 
     - name: Add python requirements
@@ -69,6 +71,41 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         path: dist/*.whl
+
+  # ----------------------------------------------------------------------------
+  build_wheels_macos:
+    name: Wheels on macOS - python${{ matrix.python-version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8"]
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    # - name: Install MacOS dependencies
+    #   if: ${{ runner.os == 'macOS' }}
+    #   run: bash $GITHUB_WORKSPACE/.github/install_macos_dependencies.sh
+
+  # ----------------------------------------------------------------------------
+  build_wheels_windows:
+    name: Wheels on windows - python${{ matrix.python-version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8"]
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
 
   # ----------------------------------------------------------------------------
   upload_all:

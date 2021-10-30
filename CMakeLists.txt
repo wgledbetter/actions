@@ -11,7 +11,7 @@ unset(BUILD_SHARED_LIBS)
 add_subdirectory(dep/pybind11)
 
 find_package(MKL REQUIRED)
-find_package(OpenMP REQUIRED)
+# find_package(OpenMP REQUIRED)
 find_package(Threads REQUIRED)
 
 

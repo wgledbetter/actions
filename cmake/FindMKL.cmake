@@ -115,8 +115,6 @@ find_library(MKL_INTERFACE_LIBRARY
                   $ENV{INTEL}/mkl/latest/lib/intel64
                   $ENV{MKLROOT}/lib/intel64_win
                   $ENV{INTEL}/mkl/lib/intel64_win
-                  $ENV{INTEL}/compiler/latest/lib/intel64
-                  $ENV{INTEL}/compiler/latest/lib/intel64_win)
 
 find_library(MKL_CORE_LIBRARY
             NAMES ${COR_LIB}
@@ -125,9 +123,7 @@ find_library(MKL_CORE_LIBRARY
                   $ENV{INTEL}/mkl/lib/intel64
                   $ENV{INTEL}/mkl/latest/lib/intel64
                   $ENV{MKLROOT}/lib/intel64_win
-                  $ENV{INTEL}/mkl/lib/intel64_win
-                  $ENV{INTEL}/compiler/latest/lib/intel64
-                  $ENV{INTEL}/compiler/latest/lib/intel64_win)
+                  $ENV{INTEL}/mkl/lib/intel64_win)
 
 find_library(MKL_OMP_LIBRARY
             NAMES ${OMP_LIB}
@@ -138,7 +134,8 @@ find_library(MKL_OMP_LIBRARY
                   $ENV{INTEL}/compiler/lib/intel64
                   $ENV{INTEL}/compiler/lib/intel64_win
                   $ENV{INTEL}/compiler/latest/lib/intel64
-                  $ENV{INTEL}/compiler/latest/lib/intel64_win)
+                  $ENV{INTEL}/compiler/latest/lib/intel64_win
+                  $ENV{INTEL}/compiler/latest/linux/compiler/lib/intel64_lin)
 
 
 

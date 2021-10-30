@@ -50,28 +50,24 @@ jobs:
     - name: Install Ubuntu dependencies
       if: ${{ runner.os == 'linux' }}
       env:
-        COMPILER: ${{ matrix.compiler }}
+        COMPILER: "clang-12"
       run: bash $GITHUB_WORKSPACE/.github/install_ubuntu_dependencies.sh
 
     - name: Install MacOS dependencies
       if: ${{ runner.os == 'macOS' }}
-      env:
-        COMPILER: ${{ matrix.compiler }}
       run: bash $GITHUB_WORKSPACE/.github/install_macos_dependencies.sh
     # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    - uses: pypa/cibuildwheel@v2.2.0
-      env:
-        CIBW_ARCHS_MACOS: auto universal2
+    - name: Add python requirements
+      run : python -m pip install --upgrade wheel setuptools
 
-    - name: Verify clean directory
-      run: git diff --exit-code
-      shell: bash
+    - name: Create wheel
+      run: python setup.py bdist_wheel
 
     - name: Upload wheels
       uses: actions/upload-artifact@v2
       with:
-        path: wheelhouse/*.whl
+        path: dist/*.whl
 
   # ----------------------------------------------------------------------------
   upload_all:

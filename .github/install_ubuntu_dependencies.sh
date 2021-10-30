@@ -25,6 +25,4 @@ source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=/opt/intel/oneapi" >> $GITHUB_ENV
 
-ls /opt/intel/oneapi/compiler/latest/lib
-echo "***************************"
-ls /opt/intel/oneapi/compiler/latest/lib/intel64
+find / -name "libiomp*"

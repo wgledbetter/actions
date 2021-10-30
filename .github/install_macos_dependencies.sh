@@ -1,7 +1,8 @@
 # Install MKL
-sudo conda install -c intel mkl-static mkl-devel intel-openmp
+echo $(which python)
+conda install -c intel mkl-static mkl-devel intel-openmp
 PYTHONEXEC=`which python`
-sudo echo "MKLROOT=${PYTHONEXEC%/bin/python}" >> $GITHUB_ENV
+sudo echo "MKLROOT=/usr/local/miniconda" >> $GITHUB_ENV
 
 echo "1*********************"
 echo "2*********************"
@@ -11,5 +12,5 @@ echo ${PYTHONEXEC%/bin/python}::
 echo "*********************"
 ls ${PYTHONEXEC%/bin/python}/lib
 echo "*********************"
-sudo find ${PYTHONEXEC%/bin/python} -name "libmkl*"
+sudo find /usr/local/miniconda -name "libiomp*"
 echo "END FIND ************"

@@ -4,6 +4,7 @@ sudo apt update
 
 # Install Compiler
 sudo apt install $COMPILER
+COMPILER_NAME=
 
 # Install MKL
 cd /tmp
@@ -16,3 +17,5 @@ sudo apt install intel-oneapi-mkl intel-oneapi-mkl-devel
 source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=$INTEL" >> $GITHUB_ENV
+
+cat $GITHUB_ENV

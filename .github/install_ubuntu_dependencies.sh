@@ -8,7 +8,7 @@ COMPILER_NAME=${COMPILER%-*}
 COMPILER_VERSION=${COMPILER%*-}
 if [[ $COMPILER_NAME == "clang" ]]; then
   echo "CC=$COMPILER" >> $GITHUB_ENV
-  echo "CXX=$COMPILER_NAME++" >> $GITHUB_ENV
+  echo "CXX=$COMPILER_NAME++-$COMPILER_VERSION" >> $GITHUB_ENV
 else
   echo "CC=gcc-$COMPILER_VERSION" >> $GITHUB_ENV
   echo "CXX=g++-$COMPILER_VERSION" >> $GITHUB_ENV
@@ -26,8 +26,10 @@ source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=$INTEL" >> $GITHUB_ENV
 
-ls $MKLROOT
+echo $MKLROOT
+ls $MKLROOT/lib/intel64
 echo "*************"
-cat /etc/apt/sources.list.d/oneAPI.list
+ls /opt/intel/oneapi
 echo "*************"
-ls /usr/bin/clang*
+ls /usr/bin/gcc*
+ls /usr/bin/g++*

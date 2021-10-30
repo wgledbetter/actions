@@ -66,7 +66,7 @@ jobs:
       run: bash $GITHUB_WORKSPACE/.github/install_macos_dependencies.sh
 
     - name: Add python requirements
-      run : conda activate base && python -m pip install --upgrade wheel setuptools
+      run : conda activate test && python -m pip install --upgrade wheel setuptools
 
     - name: Build and install
-      run: conda activate base && pip install --verbose -e .
+      run: conda activate test && pip install --verbose -e .

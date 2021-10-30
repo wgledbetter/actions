@@ -1,5 +1,5 @@
 # Install MKL
-echo $(which python)
+conda activate test
 conda install -c intel mkl-static mkl-devel intel-openmp
 PYTHONEXEC=`which python`
 sudo echo "MKLROOT=/usr/local/miniconda" >> $GITHUB_ENV

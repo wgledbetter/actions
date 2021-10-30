@@ -4,7 +4,15 @@ sudo apt update
 
 # Install Compiler
 sudo apt install $COMPILER
-COMPILER_NAME=
+COMPILER_NAME=${COMPILER%-*}
+COMPILER_VERSION=${COMPILER%*-}
+if [[ $COMPILER_NAME == "clang" ]]; then
+  echo "CC=$COMPILER" >> $GITHUB_ENV
+  echo "CXX=$COMPILER_NAME++" >> $GITHUB_ENV
+else
+  echo "CC=gcc-$COMPILER_VERSION" >> $GITHUB_ENV
+  echo "CXX=g++-$COMPILER_VERSION" >> $GITHUB_ENV
+fi
 
 # Install MKL
 cd /tmp
@@ -18,4 +26,5 @@ source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
 echo "INTEL=$INTEL" >> $GITHUB_ENV
 
-ls $MKLROOT/lib
+echo "*************"
+ls /usr/bin/clang*

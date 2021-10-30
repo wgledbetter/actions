@@ -9,7 +9,7 @@ echo "3*********************"
 
 echo ${PYTHONEXEC%/bin/python}::
 echo "*********************"
-ls ${PYTHONEXEC%/bin/python}/lib/python3.8
+ls ${PYTHONEXEC%/bin/python}/lib/python3.8/site-packages
 echo "*********************"
-find ${PYTHONEXEC%/bin/python} -name "libmkl*"
+sudo find ${PYTHONEXEC%/bin/python} -name "libmkl*"
 echo "END FIND ************"

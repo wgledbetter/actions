@@ -35,7 +35,8 @@ jobs:
       run: bash $GITHUB_WORKSPACE/.github/install_ubuntu_dependencies.sh
 
     - name: Add python requirements
-      run: python -m pip install --upgrade wheel setuptools
+      run : echo "MKLROOT = "$MKLROOT &&
+            python -m pip install --upgrade wheel setuptools
 
     - name: Build and install
       run: pip install --verbose .

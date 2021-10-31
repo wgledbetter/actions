@@ -25,28 +25,7 @@ else
   echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
   sudo apt update
 
-  oneapi-packages=(                              \
-    intel-oneapi-common-licensing                \
-    intel-oneapi-compiler-dpcpp-cpp              \
-    intel-oneapi-compiler-dpcpp-cpp-common       \
-    intel-oneapi-compiler-dpcpp-cpp-runtime      \
-    intel-oneapi-compiler-shared                 \
-    intel-oneapi-compiler-shared-common          \
-    intel-oneapi-compiler-shared-runtime         \
-    intel-oneapi-dev-utilities                   \
-    intel-oneapi-dpcpp-cpp                       \
-    intel-oneapi-libdpstd-devel                  \
-    intel-oneapi-mkl                             \
-    intel-oneapi-mkl-common                      \
-    intel-oneapi-mkl-common-devel                \
-    intel-oneapi-mkl-devel                       \
-    intel-oneapi-openmp                          \
-    intel-oneapi-openmp-common                   \
-    intel-oneapi-tbb                             \
-    intel-oneapi-tbb-common                      \
-    intel-oneapi-tbb-common-devel                \
-    intel-oneapi-tbb-devel                       \
-  )
+  oneapi-packages=(intel-oneapi-common-licensing intel-oneapi-compiler-dpcpp-cpp intel-oneapi-compiler-dpcpp-cpp-common intel-oneapi-compiler-dpcpp-cpp-runtime intel-oneapi-compiler-shared intel-oneapi-compiler-shared-common intel-oneapi-compiler-shared-runtime intel-oneapi-dev-utilities intel-oneapi-dpcpp-cpp intel-oneapi-libdpstd-devel intel-oneapi-mkl intel-oneapi-mkl-common intel-oneapi-mkl-common-devel intel-oneapi-mkl-devel intel-oneapi-openmp intel-oneapi-openmp-common intel-oneapi-tbb intel-oneapi-tbb-common intel-oneapi-tbb-common-devel intel-oneapi-tbb-devel)
   mkdir -p ~/oneapi
   for pkg in ${oneapi-packages[@]}; do
     sudo apt-get install ${pkg}-$ONEAPI_VERSION

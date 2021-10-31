@@ -15,65 +15,14 @@ else
 fi
 
 # Install MKL
-if [[ "$CACHE_HIT" == 'true' ]]; then
-  echo "I AM USING THE CACHE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  sudo cp --verbose --force --recursive ~/oneapi/* /
-else
-  cd /tmp
-  wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-  sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-  rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-  echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-  sudo apt update
-
-  oneapi_packages=(
-    "intel-oneapi-common-licensing"
-    # "intel-oneapi-common-vars"
-    # "intel-oneapi-compiler-cpp-eclipse-cfg"
-    "intel-oneapi-compiler-dpcpp-cpp"
-    "intel-oneapi-compiler-dpcpp-cpp-common"
-    "intel-oneapi-compiler-dpcpp-cpp-runtime"
-    # "intel-oneapi-compiler-dpcpp-eclipse-cfg"
-    "intel-oneapi-compiler-shared"
-    "intel-oneapi-compiler-shared-common"
-    "intel-oneapi-compiler-shared-runtime"
-    # "intel-oneapi-condaindex"
-    "intel-oneapi-dev-utilities"
-    # "intel-oneapi-dev-utilities-eclipse-cfg"
-    "intel-oneapi-dpcpp-cpp"
-    # "intel-oneapi-dpcpp-cpp-debugger"
-    # "intel-oneapi-dpcpp-cpp-debugger-eclipse-cfg"
-    "intel-oneapi-libdpstd-devel"
-    "intel-oneapi-mkl"
-    "intel-oneapi-mkl-common"
-    "intel-oneapi-mkl-common-devel"
-    "intel-oneapi-mkl-devel"
-    "intel-oneapi-openmp"
-    "intel-oneapi-openmp-common"
-    "intel-oneapi-tbb"
-    "intel-oneapi-tbb-common"
-    "intel-oneapi-tbb-common-devel"
-    "intel-oneapi-tbb-devel"
-  )
-  versioned_packages=("${oneapi_packages[@]/%/-$ONEAPI_VERSION}")
-  mkdir -p ~/oneapi
-  sudo apt-get install ${versioned_packages[*]}
-  for pkg in ${versioned_packages[@]}; do
-    sudo dpkg -L ${pkg} | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/oneapi/
-  done
-
-  echo "dpkg -L output:"
-  sudo dpkg -L intel-oneapi-mkl-$ONEAPI_VERSION
-
-  # mkdir -p ~/mkl
-  # sudo dpkg -L intel-oneapi-mkl | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/
-  # sudo dpkg -L intel-oneapi-mkl-devel | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/
-  # sudo dpkg -L intel-oneapi-openmp | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/
-  # sudo dpkg -L intel-oneapi-compiler-dpcpp-cpp | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/mkl/
-fi
+cd /tmp
+wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+sudo apt update
+sudo apt install intel-oneapi-compiler-dpcpp-cpp intel-oneapi-mkl-devel intel-oneapi-mkl intel-oneapi-openmp
 
 source /opt/intel/oneapi/mkl/latest/env/vars.sh
 echo "MKLROOT=$MKLROOT" >>$GITHUB_ENV
 echo "INTEL=/opt/intel/oneapi" >>$GITHUB_ENV
-
-find /opt/intel -name "libiomp*"

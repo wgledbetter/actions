@@ -46,19 +46,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - uses: actions/cache@v2
-      name: Cache oneAPI
-      id: cache-oneapi
-      with:
-        path: "~/oneapi"
-        key: ${{ secrets.ONEAPI_VERSION }}
-
     - name: Install Ubuntu dependencies
       if: ${{ runner.os == 'linux' }}
       env:
         COMPILER: "clang-11"
-        CACHE_HIT: ${{ steps.cache-oneapi.outputs.cache-hit }}
-        ONEAPI_VERSION: ${{ secrets.ONEAPI_VERSION }}
       run: bash $GITHUB_WORKSPACE/.github/install_ubuntu_dependencies.sh
 
     - name: Add python requirements

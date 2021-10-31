@@ -113,8 +113,10 @@ jobs:
       #   run: ls -lah $GITHUB_WORKSPACE/release/artifact/
 
       - name: Incremental Release
-        uses: johnwbyrd/update-release@v1.0.0
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          token: ${{ secrets.PAT }}
+          repo_token: ${{ secrets.PAT }}
           files: $GITHUB_WORKSPACE/release/artifact/*
-          release: latest
+          automatic_release_tag: latest
+          prerelease: true
+          title: "Development Build"

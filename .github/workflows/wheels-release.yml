@@ -118,5 +118,4 @@ jobs:
           repo_token: ${{ secrets.PAT }}
           files: ${{ github.workspace }}/release/artifact/*
           automatic_release_tag: latest
-          prerelease: true
           title: "Development Build"

@@ -116,7 +116,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.PAT }}
-          files: $GITHUB_WORKSPACE/release/artifact/*
+          files: ${{ github.workspace }}/release/artifact/*
           automatic_release_tag: latest
           prerelease: true
           title: "Development Build"

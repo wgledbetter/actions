@@ -16,6 +16,7 @@ fi
 
 # Install MKL
 if [[ "$CACHE_HIT" == 'true' ]]; then
+  echo "I AM USING THE CACHE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   sudo cp --verbose --force --recursive ~/oneapi/* /
 else
   cd /tmp
@@ -54,17 +55,12 @@ else
     "intel-oneapi-tbb-common-devel"
     "intel-oneapi-tbb-devel"
   )
+  versioned_packages=("${oneapi_packages[@]/%/-$ONEAPI_VERSION}")
   mkdir -p ~/oneapi
-  for pkg in ${oneapi_packages[@]}; do
-    sudo apt-get install ${pkg}-$ONEAPI_VERSION
-    sudo dpkg -L ${pkg}-$ONEAPI_VERSION | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/oneapi/
+  sudo apt-get install ${versioned_packages[*]}
+  for pkg in ${versioned_packages[@]}; do
+    sudo dpkg -L ${pkg} | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/oneapi/
   done
-
-  # echo "NEW KEYS SHOULD BE:"
-  # apt-cache policy intel-oneapi-mkl | grep -oP '(?<=Candidate:\s)(.+)'
-  # apt-cache policy intel-oneapi-mkl-devel | grep -oP '(?<=Candidate:\s)(.+)'
-  # apt-cache policy intel-oneapi-openmp | grep -oP '(?<=Candidate:\s)(.+)'
-  # apt-cache policy intel-oneapi-compiler-dpcpp-cpp | grep -oP '(?<=Candidate:\s)(.+)'
 
   echo "dpkg -L output:"
   sudo dpkg -L intel-oneapi-mkl-$ONEAPI_VERSION

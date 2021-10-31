@@ -109,8 +109,8 @@ jobs:
         with:
           path: release
 
-      - name: Check downloaded artifacts
-        run: s -lah $GITHUB_WORKSPACE/release/artifact/
+      # - name: Check downloaded artifacts
+      #   run: ls -lah $GITHUB_WORKSPACE/release/artifact/
 
       - name: Incremental Release
         uses: johnwbyrd/update-release@v1.0.0

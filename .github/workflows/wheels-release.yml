@@ -100,7 +100,7 @@ jobs:
 
   # ----------------------------------------------------------------------------
   upload_all:
-    name: Upload if release
+    name: Update release
     needs: [build_wheels_linux, build_sdist]
     runs-on: ubuntu-latest
 
@@ -113,8 +113,8 @@ jobs:
         run: s -lah $GITHUB_WORKSPACE/release/artifact/
 
       - name: Incremental Release
-        uses: johnwbyrd/update-release@v1
+        uses: johnwbyrd/update-release@v1.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           files: $GITHUB_WORKSPACE/release/artifact/*
           release: latest

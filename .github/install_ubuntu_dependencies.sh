@@ -5,13 +5,13 @@ sudo apt update
 # Install Compiler
 sudo apt install $COMPILER
 $COMPILER -v
-echo "CC=$COMPILER" >> $GITHUB_ENV
+echo "CC=$COMPILER" >>$GITHUB_ENV
 COMPILER_NAME=${COMPILER%-*}
 COMPILER_VERSION=${COMPILER#*-}
 if [[ $COMPILER_NAME == "clang" ]]; then
-  echo "CXX=$COMPILER_NAME++-$COMPILER_VERSION" >> $GITHUB_ENV
+  echo "CXX=$COMPILER_NAME++-$COMPILER_VERSION" >>$GITHUB_ENV
 else
-  echo "CXX=g++-$COMPILER_VERSION" >> $GITHUB_ENV
+  echo "CXX=g++-$COMPILER_VERSION" >>$GITHUB_ENV
 fi
 
 # Install MKL
@@ -25,9 +25,37 @@ else
   echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
   sudo apt update
 
-  oneapi-packages=(intel-oneapi-common-licensing intel-oneapi-compiler-dpcpp-cpp intel-oneapi-compiler-dpcpp-cpp-common intel-oneapi-compiler-dpcpp-cpp-runtime intel-oneapi-compiler-shared intel-oneapi-compiler-shared-common intel-oneapi-compiler-shared-runtime intel-oneapi-dev-utilities intel-oneapi-dpcpp-cpp intel-oneapi-libdpstd-devel intel-oneapi-mkl intel-oneapi-mkl-common intel-oneapi-mkl-common-devel intel-oneapi-mkl-devel intel-oneapi-openmp intel-oneapi-openmp-common intel-oneapi-tbb intel-oneapi-tbb-common intel-oneapi-tbb-common-devel intel-oneapi-tbb-devel)
+  oneapi_packages=(
+    "intel-oneapi-common-licensing"
+    # "intel-oneapi-common-vars"
+    # "intel-oneapi-compiler-cpp-eclipse-cfg"
+    "intel-oneapi-compiler-dpcpp-cpp"
+    "intel-oneapi-compiler-dpcpp-cpp-common"
+    "intel-oneapi-compiler-dpcpp-cpp-runtime"
+    # "intel-oneapi-compiler-dpcpp-eclipse-cfg"
+    "intel-oneapi-compiler-shared"
+    "intel-oneapi-compiler-shared-common"
+    "intel-oneapi-compiler-shared-runtime"
+    # "intel-oneapi-condaindex"
+    "intel-oneapi-dev-utilities"
+    # "intel-oneapi-dev-utilities-eclipse-cfg"
+    "intel-oneapi-dpcpp-cpp"
+    # "intel-oneapi-dpcpp-cpp-debugger"
+    # "intel-oneapi-dpcpp-cpp-debugger-eclipse-cfg"
+    "intel-oneapi-libdpstd-devel"
+    "intel-oneapi-mkl"
+    "intel-oneapi-mkl-common"
+    "intel-oneapi-mkl-common-devel"
+    "intel-oneapi-mkl-devel"
+    "intel-oneapi-openmp"
+    "intel-oneapi-openmp-common"
+    "intel-oneapi-tbb"
+    "intel-oneapi-tbb-common"
+    "intel-oneapi-tbb-common-devel"
+    "intel-oneapi-tbb-devel"
+  )
   mkdir -p ~/oneapi
-  for pkg in ${oneapi-packages[@]}; do
+  for pkg in ${oneapi_packages[@]}; do
     sudo apt-get install ${pkg}-$ONEAPI_VERSION
     sudo dpkg -L ${pkg}-$ONEAPI_VERSION | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/oneapi/
   done
@@ -49,7 +77,7 @@ else
 fi
 
 source /opt/intel/oneapi/mkl/latest/env/vars.sh
-echo "MKLROOT=$MKLROOT" >> $GITHUB_ENV
-echo "INTEL=/opt/intel/oneapi" >> $GITHUB_ENV
+echo "MKLROOT=$MKLROOT" >>$GITHUB_ENV
+echo "INTEL=/opt/intel/oneapi" >>$GITHUB_ENV
 
 find /opt/intel -name "libiomp*"

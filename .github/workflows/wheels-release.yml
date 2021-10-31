@@ -110,9 +110,11 @@ jobs:
           path: release
 
       - name: Check downloaded artifacts
-        run: ls -lah $GITHUB_WORKSPACE/release/ && ls -lah $GITHUB_WORKSPACE/release/artifact/
+        run: s -lah $GITHUB_WORKSPACE/release/artifact/
 
-      # - uses: johnwbyrd/update-release@v1
-      #   with:
-      #     token: ${{ secrets.YOUR_PRIVATE_SECRET_TOKEN }}
-      #     files: $GITHUB_WORKSPACE/release/*
+      - name: Incremental Release
+        uses: johnwbyrd/update-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: $GITHUB_WORKSPACE/release/artifact/*
+          release: latest
